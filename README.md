@@ -57,11 +57,3 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 ### License
 
 This project is licensed under the [MIT License](LICENSE).
-
-### Author
-
-[Your Name](https://github.com/your_username)
-
----
-
-Feel free to customize the documentation as per your requirements, and don't forget to replace placeholders such as `your_username` and `Your Name` with your actual GitHub username and name.
