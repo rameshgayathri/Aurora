@@ -27,7 +27,7 @@ This repository contains the source code for a Seminar Hall Management Web Appli
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your_username/seminar-hall-management.git
+   git clone https://github.com/rameshgayathri/seminar-hall-management.git
    ```
 
 2. Install dependencies:
