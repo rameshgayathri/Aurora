@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Approval - Aurora Hall Management System</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Additional custom styles */
+        body {
+            padding-top: 70px; /* Adjusted for fixed navbar */
+            padding-bottom: 50px; /* Adjusted for footer */
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://cdn1.iconfinder.com/data/icons/higher-education/66/5-1024.png" width="40" height="40" class="d-inline-block align-top" alt="">
+                Aurora
+            </a>
+            <a href="/" class="btn btn-danger">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="my-4">Admin Approval Page</h1>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Booking ID</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Hall Name</th>
+                    <th scope="col">Booking Date</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="bookingTable">
+                <!-- Booking requests will be dynamically added here -->
+            </tbody>
+        </table>
+        <!-- Result message section -->
+        {% if result_message %}
+        <div class="mt-4 alert alert-{{ result_type }}" role="alert">
+            {{ result_message }}
+        </div>
+        {% endif %}
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">© Aurora Hall Management System. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (optional, for certain Bootstrap features) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Parse the JSON data containing booking requests
+        var bookingRequests = JSON.parse('{{ bookings | safe }}');
+
+        // Loop through the booking requests and dynamically generate HTML elements
+        var tableBody = document.getElementById('bookingTable');
+        bookingRequests.forEach(function(booking) {
+            var row = document.createElement('tr');
+            row.innerHTML = '<td>' + booking.id + '</td>' +
+                            '<td>' + booking.user_name + '</td>' +
+                            '<td>' + booking.hall_name + '</td>' +
+                            '<td>' + booking.booking_date + '</td>' +
+                            '<td>' +
+                            '<form action="/approve_booking/' + booking.id + '" method="POST">' +
+                            '<button type="submit" name="action" value="approved">Approve</button>' +
+                            '<button type="submit" name="action" value="rejected">Reject</button>' +
+                            '</form>' +
+                            '</td>';
+            tableBody.appendChild(row);
+        });
+    </script>
+</body>
+</html>

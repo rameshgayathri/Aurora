@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Hall Management System</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .error-message {
+            color: red;
+        }
+        /* Custom CSS for footer alignment */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 60px; /* Height of the footer */
+            background-color: #f5f5f5;
+            text-align: center;
+            line-height: 60px; /* Align text vertically in the middle */
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="https://cdn1.iconfinder.com/data/icons/higher-education/66/5-1024.png" width="40" height="40" class="d-inline-block align-top" alt="">
+                Aurora
+            </a>
+            
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Sign Up</h2>
+                        <form id="signupForm" action="/signup" method="POST">
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" id="username" name="username" class="form-control" required>
+                                <span id="usernameError" class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                                <span id="emailError" class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password" class="form-control" required>
+                                <span id="passwordError" class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="user_type">User Type:</label>
+                                <select id="user_type" name="user_type" class="form-control" required>
+                                    <option value="">Select User Type</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="student">Student</option>
+                                </select>
+                                <span id="userTypeError" class="error-message"></span>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">Sign Up</button>
+                            </div>
+                            <div>
+                                <a href="/" class="btn btn-link">Back to Login</a> <!-- Add this line -->
+                            </div>
+                        </form>
+                        <!-- Result message section -->
+                        {% if result_message %}
+                        <div class="mt-4 alert alert-{{ result_type }}" role="alert">
+                            {{ result_message }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+        <div class="container">
+            <span class="text-muted">© Aurora Hall Management System. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (optional, for certain Bootstrap features) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Real-time validation for the signup form
+        const signupForm = document.getElementById('signupForm');
+        const usernameInput = document.getElementById('username');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const userTypeInput = document.getElementById('user_type');
+        const usernameError = document.getElementById('usernameError');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+        const userTypeError = document.getElementById('userTypeError');
+
+        signupForm.addEventListener('submit', function(event) {
+            let isValid = true;
+            if (usernameInput.value.trim() === '') {
+                usernameError.textContent = 'Username is required';
+                isValid = false;
+            } else {
+                usernameError.textContent = '';
+            }
+
+            if (emailInput.value.trim() === '') {
+                emailError.textContent = 'Email is required';
+                isValid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            if (passwordInput.value.trim() === '') {
+                passwordError.textContent = 'Password is required';
+                isValid = false;
+            } else {
+                passwordError.textContent = '';
+            }
+
+            if (userTypeInput.value === '') {
+                userTypeError.textContent = 'Please select a user type';
+                isValid = false;
+            } else {
+                userTypeError.textContent = '';
+            }
+
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if there are errors
+            }
+        });
+    </script>
+</body>
+</html>
